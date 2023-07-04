@@ -19,10 +19,10 @@ from time import sleep
 from openpyxl import load_workbook
 
 def clickMe():
-  # v1 = id.get()
-  # v2 = pw.get()
-  v1 = mc.email
-  v2 = mc.password
+  v1 = id.get()
+  v2 = pw.get()
+  # v1 = mc.email
+  # v2 = mc.password
   
   orderUrlList = []
   
@@ -207,7 +207,7 @@ def clickMe():
     
   
 root = Tk()
-root.title("gui?")
+root.title("i-Cloud - Arista Orders")
 root.geometry("200x150+500+300") ## w, h, x, y
 root.resizable(False, False)
 
@@ -224,7 +224,7 @@ label = ttk.Label(root, text="PW")
 label.grid(column=0, row=1)
 
 pw = StringVar()
-pwTextbox = ttk.Entry(root, width=20, textvariable=pw)
+pwTextbox = ttk.Entry(root, width=20, textvariable=pw, show="*")
 pwTextbox.grid(column = 1 , row = 1)
 
 btn = Button(root, text="시작", padx=10, pady=5, command=clickMe)
