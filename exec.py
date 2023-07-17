@@ -2,6 +2,7 @@
 #!/usr/bin/env python
 from tkinter import *
 from tkinter import ttk, messagebox
+import platform
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -10,7 +11,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.support import expected_conditions as EC
-import pause, os, shutil
+import pause, os, shutil, sys
 from operator import eq, ne
 # from webdriver_manager.chrome import ChromeDriverManager
 from datetime import datetime
@@ -23,7 +24,10 @@ def clickMe():
   v2 = pw.get()
   # v1 = mc.email
   # v2 = mc.password
-  
+  if eq(platform.system().lower(), "windows"):
+    path = "."
+  else:
+    path = os.path.sep.join(sys.argv[0].split(os.path.sep)[:-1])
   orderUrlList = []
   
   data = []
@@ -33,7 +37,10 @@ def clickMe():
     idTextbox.focus()
   else:
     
-    service = ChromeService(executable_path="D:\workspace\aristaOrder\chromedriver.exe")
+    if eq(platform.system().lower(), "windows"):
+      path = "."
+    else:
+      service = ChromeService(executable_path=f"{path}/chromedriver.exe")
     
     options = ChromeOptions()
     options.page_load_strategy = 'normal'
@@ -176,17 +183,17 @@ def clickMe():
     
     
     ## 파일 체크
-    orderFile = "./arista_order_" + today + ".xlsx"
+    orderFile = f"{path}/arista_order_" + today + ".xlsx"
     idx = 0
     while True:
       if os.path.isfile(orderFile):
         idx += 1
-        orderFile = "./arista_order_" + today + "_" + str(idx) + ".xlsx"
+        orderFile = f"{path}/arista_order_" + today + "_" + str(idx) + ".xlsx"
       else:
         break
       
     ## sample 파일 복사
-    shutil.copy("./sample.xlsx", orderFile)
+    shutil.copy(f"{path}/sample.xlsx", orderFile)
     
     workbook = load_workbook(filename=orderFile, read_only=False, data_only=True)
     sheet = workbook["ORDERS"]
@@ -208,7 +215,10 @@ def clickMe():
   
 root = Tk()
 root.title("i-Cloud - Arista Orders")
-root.geometry("200x150+500+300") ## w, h, x, y
+if eq(platform.system().lower(), "windows"):
+  root.geometry("200x150+500+300") ## w, h, x, y
+else:
+  root.geometry("230x150+500+300") ## w, h, x, y
 root.resizable(False, False)
 
 
