@@ -37,7 +37,10 @@ def clickMe():
     idTextbox.focus()
   else:
     
-    service = ChromeService(executable_path=f"{path}/chromedriver.exe")
+    if eq(platform.system().lower(), "windows"):
+      service = ChromeService(executable_path="./chromedriver.exe")
+    else:
+      service = ChromeService(executable_path=f"{path}/chromedriver")
     
     options = ChromeOptions()
     options.page_load_strategy = 'normal'
