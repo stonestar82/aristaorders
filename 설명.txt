@@ -1,0 +1,14 @@
+chromedriver 폴더안에  있는 각 운영체제별 chromedriver를 exec.py 폴더와 동일 루트상으로 복제
+
+드라이버 버전은 크롬 114 버전으로 사용자 컴퓨터 크롬 브라우저 버전에 따라 작동 안할 수 있음
+
+크롬 드라이버 다운로드 페이지
+https://chromedriver.chromium.org/downloads
+
+
+
+실행파일 만들기
+실행파일 생성후 sample.xlsx 파일을 release 폴더로 복사
+
+pyinstaller -F --distpath="release" -n=aristaorder exec.py
+
