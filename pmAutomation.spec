@@ -5,7 +5,7 @@ block_cipher = pyi_crypto.PyiBlockCipher(key='83BC0105E48BF787')
 
 
 a = Analysis(
-    ['rma.py'],
+    ['exec.py'],
     pathex=[],
     binaries=[],
     datas=[('icloud.ico', '.')],
@@ -28,7 +28,7 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name='AristaRMA',
+    name='pmAutomation',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,

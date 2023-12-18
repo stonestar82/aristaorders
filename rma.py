@@ -21,7 +21,6 @@ from datetime import datetime
 import configRma as mc
 from time import sleep
 from openpyxl import load_workbook
-import requests
 import threading
 
 def threadCall(func, **kwargs):
@@ -121,18 +120,10 @@ def clickMe():
 
 		if (cookieBtn.is_displayed()):
 			cookieBtn.click()
+		
+		while True:
 
-		# pagination 
-		pagination = driver.execute_script("return document.querySelector('.slds-p-around_small .slds-col').querySelectorAll('span')")
-
-		for k in range(0, len(pagination)):
-
-			if k > 0:
-				p = pagination[k].find_element(By.TAG_NAME, "a")
-				p.click()
-
-				sleep(3)
-
+			
 			listCount = len(driver.find_element(By.XPATH, '//*[@id="firstTab"]/div/div/div[1]/table').find_element(By.TAG_NAME, "tbody").find_elements(By.TAG_NAME, "tr"))
 
 
@@ -211,6 +202,15 @@ def clickMe():
 
 					#sleep(2)
 
+			nectBtn = driver.find_element(By.XPATH, '//*[@id="firstTab"]/div/div/div[2]/div/table/tr/td[3]/center/button[3]')
+
+			if (nectBtn.get_attribute("disabled") == "true"):
+				break
+			else:
+				nectBtn.click()
+
+				sleep(3)
+
 
 		driver.close()
 		## 오늘 날짜
@@ -254,7 +254,7 @@ def clickMe():
 		btn.configure(text="시작")
 	
 root = ttk.Window(themename="litera")
-root.title("i-Cloud - Arista RMA")
+root.title("i-Cloud | Arista RMA")
 if eq(platform.system().lower(), "windows"):
 	root.geometry("400x150+500+300") ## w, h, x, y
 	root.iconbitmap(resource_path("icloud.ico"))
